@@ -2,6 +2,16 @@
 
 const listItems = document.querySelectorAll('li');
 
+const style = document.createElement('style');
+
+style.textContent = `
+  .hidden {
+    display: none;
+  }
+`;
+
+document.head.append(style);
+
 for (const list of listItems) {
   if (list.children.length !== 0) {
     const span = document.createElement('span');
@@ -11,16 +21,8 @@ for (const list of listItems) {
     list.insertBefore(span, list.firstChild);
     list.firstChild.nextSibling.remove();
 
-    span.addEventListener('click', showHeader);
-  }
-}
-
-function showHeader() {
-  const spanDisplay = this.nextSibling.style;
-
-  if (spanDisplay.display === 'none') {
-    spanDisplay.display = '';
-  } else {
-    spanDisplay.display = 'none';
+    span.addEventListener('click', function () {
+      this.nextSibling.classList.toggle('hidden');
+    });
   }
 }
